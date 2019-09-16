@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.projetvr.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\a.moraitis\\Desktop\\VR-Test\\Projet_VR\\projetVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "projetVR [Testing]"
+        }
+      }
+    }
+  ]
+}
