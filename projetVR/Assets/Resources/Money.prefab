@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6849300569342033073}
   - component: {fileID: 878505390118584392}
   - component: {fileID: 530259280499544247}
+  - component: {fileID: 6512221766740062570}
   m_Layer: 0
   m_Name: Money
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: f1fac952afba65f408c9459b32253597, type: 3}
+  - {fileID: 2100000, guid: 18628197e2f891b4db3f9b2c830e6733, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -92,3 +93,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.4781623, y: 6.900599, z: 1.391228}
   m_Center: {x: 0, y: 0, z: 0.695614}
+--- !u!95 &6512221766740062570
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445028706595304596}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2b8ab5d3d1deaa34f8ab7bdef7e02fdf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -20,6 +20,8 @@ TagManager:
   - triggerZone1
   - triggerZone2
   - GardePlante
+  - Ball
+  - Money
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,8 @@ namespace Valve.VR.InteractionSystem.Sample
 {
     public class ButtonBehaviour : MonoBehaviour
     {
-        public GameObject door;
+        public GameObject door1;
+        public GameObject door2;
         private Vector3 ennemyPosition = new Vector3(0, 0, 0);
         private int number = 0;
         //public audio voix;
@@ -18,8 +19,12 @@ namespace Valve.VR.InteractionSystem.Sample
 
             if (gameObject.tag == "StartButton")
             {
-                //Change scene
-                //voix.welcome();
+                if (door1)
+                {
+                    Destroy(door1);
+                    Debug.Log("start");
+
+                }
                 Debug.Log("Start Game");
             }
 
@@ -37,9 +42,9 @@ namespace Valve.VR.InteractionSystem.Sample
 
             else if (gameObject.tag == "TrueButton")
             {
-                if (door)
+                if (door2)
                 {
-                    Destroy(door);
+                    Destroy(door2);
                     Debug.Log("True room");
 
                 }

@@ -29,6 +29,8 @@ public class ObjetPointer : MonoBehaviour
     public GameObject ennemyRoot;
     private int number = 0;
 
+    private Vector3 ennemyPosition = new Vector3(0, 0, 0);
+
 
     public Vector3 origin_offset = new Vector3();
     public float max_distance_to_grab = 1000;
@@ -97,12 +99,49 @@ public class ObjetPointer : MonoBehaviour
     {
         if (newstate && touched != null)
         {
-            grabed = touched;
-            grabed.transform.SetParent(this.transform);
+            if (touched.gameObject.tag == "StartButton")
+            {
+                if (door1)
+                {
+                    Debug.Log("destroy");
+                    Destroy(door1);
+                }
+            }
+            else if (touched.gameObject.tag == "TrueButton")
+            {
+                if (door2)
+                {
+                    Destroy(door2);
+                    Debug.Log("True room");
+
+                }
+            }
+            else if (touched.gameObject.tag == "FalseButton")
+            {
+                if (number == 0)
+                {
+                    Debug.Log("False Button - Fight");
+                    GameObject ennemy = Resources.Load("NpcFight") as GameObject;
+                    Instantiate(ennemy, ennemyPosition, Quaternion.identity);
+                    number++;
+                }
+            }
+            else if (touched.gameObject.tag == "TestButton")
+            {
+                //add timer bille & Start animation
+                Debug.Log("No score");
+            }
+            else if (touched.gameObject.tag != "StartButton" || touched.gameObject.tag != "TrueButton" || touched.gameObject.tag != "FalseButton" || touched.gameObject.tag != "TestButton")
+            {
+                grabed = touched;
+                grabed.transform.SetParent(this.transform);
+            }
+
             if (Io != null)
             {
                 Io.Modify(grabed);
             }
+            
         }
         else if (!newstate && grabed != null)
         {
@@ -139,55 +178,13 @@ public class ObjetPointer : MonoBehaviour
             if (hit.distance <= max_distance_to_grab)
             {
                 string tag = hit.transform.gameObject.tag;
-                if ((tag == "Donut" || tag == "Money" || tag == "Picture" || tag == "CanMove") && grabed == null)
+                if ((tag == "Donut" || tag == "Money" || tag == "StartButton" || tag == "TrueButton" || tag == "FalseButton" || tag == "TestButton" || tag == "Picture" || tag == "Ball" || tag == "CanMove") && grabed == null)
                 {
                     touched = hit.transform.gameObject;
                     pointer.GetComponent<MeshRenderer>().material.color = highlightColor;
                 }
-                else if ((tag == "StartButton" || tag == "FalseButton" || tag == "TrueButton" || tag == "TestButton") && grabed == null)
-                {
-
-                    if (gameObject.tag == "StartButton")
-                    {
-                        if (door1)
-                        {
-                            Destroy(door1);
-
-                        }
-                        Debug.Log("Start Game");
-                    }
-
-                    else if (gameObject.tag == "FalseButton")
-                    {
-                        if (number == 0)
-                        {
-                            Debug.Log("False Button - Fight");
-                            GameObject ennemy = Resources.Load("NpcFight") as GameObject;
-                            Instantiate(ennemy, ennemyRoot.transform.position, Quaternion.identity);
-                            number++;
-
-                        }
-                    }
-
-                    else if (gameObject.tag == "TrueButton")
-                    {
-                        if (door2)
-                        {
-                            Destroy(door2);
-                            Debug.Log("True room");
-
-                        }
-                    }
-
-                    else if (gameObject.tag == "TestButton")
-                    {
-                        GameObject ball = Resources.Load("Note_desirabilite") as GameObject;
-                        Instantiate(ball, gameObject.transform.position, Quaternion.identity);
-                        Destroy(this.gameObject);
-                        Debug.Log("No score");
-                    }
-                }
             }
+            
         }
 
         if (!bHit)
