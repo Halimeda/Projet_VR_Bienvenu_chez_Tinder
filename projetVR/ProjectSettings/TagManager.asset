@@ -22,6 +22,7 @@ TagManager:
   - GardePlante
   - Ball
   - Money
+  - ObjectTest
   layers:
   - Default
   - TransparentFX

@@ -60,11 +60,10 @@ namespace VoiceInteraction
 
         }
 
-
-        private void OnTriggerPressedOrReleased()
+        private void OnTriggerEnter(Collider other)
         {
 
-            if (gameObject.tag == "Pig")
+            if (other.gameObject.tag == "Pig")
             {
                 if (inventory["Donut"] == 0)
                 {
@@ -83,22 +82,22 @@ namespace VoiceInteraction
 
             }
 
-            else if (gameObject.tag == "Donut")
+            else if (other.gameObject.tag == "Donut")
             {
                 Modify(gameObject);
             }
 
-            else if (gameObject.tag == "Money")
+            else if (other.gameObject.tag == "Money")
             {
                 Modify(gameObject);
             }
 
-            else if (gameObject.tag == "Picture")
+            else if (other.gameObject.tag == "Picture")
             {
                 Modify(gameObject);
             }
 
-            else if (gameObject.tag == "GardePlante")
+            else if (other.gameObject.tag == "GardePlante")
             {
                 if (inventory["Money"] == 1 && inventory["Picture"] == 1)
                 {
@@ -112,7 +111,7 @@ namespace VoiceInteraction
                 }
             }
 
-            else if (gameObject.tag == "ball")
+            else if (other.gameObject.tag == "ball")
             {
                 audioSource.clip = endSpeech;
                 audioSource.Play();
