@@ -26,6 +26,7 @@ namespace VoiceInteraction
         private GameObject touched;
         private GameObject grabed;
 
+        public audio voixOff;
         public GameObject door1;
         public GameObject door2;
         public GameObject enemy;
@@ -113,6 +114,7 @@ namespace VoiceInteraction
                         if (door1)
                         {
                             Debug.Log("destroy");
+                            voixOff.welcomeSpeech();
                             Destroy(door1);
                         }
                     }
@@ -142,6 +144,12 @@ namespace VoiceInteraction
                     }
                 }
 
+                if (touched.gameObject.tag == "Ball")
+                {
+                    voixOff.endSpeech();
+
+                }
+
                 
                 else if (touched.gameObject.tag == "ObjectTest")
                 {
@@ -154,10 +162,10 @@ namespace VoiceInteraction
                 
                 
 
-                if (Io != null)
-                {
-                    Io.Modify(grabed);
-                }
+                //if (Io != null)
+                //{
+                //    Io.Modify(grabed);
+                //}
 
             }
             else if (!newstate && grabed != null)

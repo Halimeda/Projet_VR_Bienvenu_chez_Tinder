@@ -1405,6 +1405,7 @@ MonoBehaviour:
   pointer: {fileID: 0}
   addRigidBody: 0
   Io: {fileID: 1959162538}
+  voixOff: {fileID: 294724197}
   door1: {fileID: 1150128426}
   door2: {fileID: 448694752}
   enemy: {fileID: 0}
@@ -1743,8 +1744,10 @@ MonoBehaviour:
   randomSee: {fileID: 8300000, guid: 6e03fc25952723745b480effadfba106, type: 3}
   insideRoom2: {fileID: 8300000, guid: ae5922e927a00f94f875833c9ab1a0fe, type: 3}
   computerTest: {fileID: 8300000, guid: 07ad696180d993e469b3ed8de66ef05c, type: 3}
+  endSpech: {fileID: 8300000, guid: 854860b58c4692948ba8f20a539fb69a, type: 3}
   door1: {fileID: 1150128426}
   door2: {fileID: 448694752}
+  audioSource: {fileID: 0}
 --- !u!82 &294724198
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1763,7 +1766,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -8503,6 +8506,7 @@ MonoBehaviour:
   pointer: {fileID: 0}
   addRigidBody: 0
   Io: {fileID: 1959162538}
+  voixOff: {fileID: 294724197}
   door1: {fileID: 1150128426}
   door2: {fileID: 448694752}
   enemy: {fileID: 0}
@@ -12562,7 +12566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 8.58
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalRotation.x
