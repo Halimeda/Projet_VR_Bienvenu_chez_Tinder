@@ -28,12 +28,11 @@ namespace VoiceInteraction
 
         public GameObject door1;
         public GameObject door2;
-        public GameObject ennemyRoot;
-        private int number = 0;
+        public GameObject enemy;
+        public Enemy enemyRoot;
+        private bool enemyCheck = false;
 
         public InteractionObjets interactionObjet;
-
-        private Vector3 ennemyPosition = new Vector3(0, 0, 0);
 
         private bool objectCheck = false;
 
@@ -105,38 +104,45 @@ namespace VoiceInteraction
         {
             if (newstate && touched != null)
             {
-                if (touched.gameObject.tag == "StartButton")
-                {
-                    if (door1)
-                    {
-                        Debug.Log("destroy");
-                        Destroy(door1);
-                    }
-                }
-                else if (touched.gameObject.tag == "TrueButton")
-                {
-                    if (door2)
-                    {
-                        Destroy(door2);
-                        Debug.Log("True room");
 
-                    }
-                }
-                else if (touched.gameObject.tag == "FalseButton")
+                if (touched.gameObject.tag != "StartButton" || touched.gameObject.tag != "TrueButton" || touched.gameObject.tag != "FalseButton" || touched.gameObject.tag != "TestButton")
                 {
-                    if (number == 0)
+                    grabed = null;
+                    if (touched.gameObject.tag == "StartButton")
                     {
-                        Debug.Log("False Button - Fight");
-                        GameObject ennemy = Resources.Load("NpcFight") as GameObject;
-                        Instantiate(ennemy, ennemyPosition, Quaternion.identity);
-                        number++;
+                        if (door1)
+                        {
+                            Debug.Log("destroy");
+                            Destroy(door1);
+                        }
+                    }
+                    else if (touched.gameObject.tag == "TrueButton")
+                    {
+                        if (door2)
+                        {
+                            Destroy(door2);
+                            Debug.Log("True room");
+
+                        }
+                    }
+                    else if (touched.gameObject.tag == "FalseButton")
+                    {
+                        if (enemyCheck == false)
+                        {
+                            Debug.Log("False Button - Fight");
+                            GameObject ennemy = Resources.Load("NpcFight") as GameObject;
+                            enemy = Instantiate(ennemy, enemyRoot.enemyPosition, Quaternion.identity) as GameObject;
+                            enemyCheck = true;
+                        }
+                    }
+                    else if (touched.gameObject.tag == "TestButton" && objectCheck == false)
+                    {
+                        //add timer bille & Start animation
+                        Debug.Log("No score");
                     }
                 }
-                else if (touched.gameObject.tag == "TestButton" && objectCheck)
-                {
-                    //add timer bille & Start animation
-                    Debug.Log("No score");
-                }
+
+                
                 else if (touched.gameObject.tag == "ObjectTest")
                 {
                     objectCheck = true;
@@ -145,11 +151,7 @@ namespace VoiceInteraction
                 {
                     //interactionObjet.OnTriggerPressedOrReleased();
                 }
-                else if (touched.gameObject.tag != "StartButton" || touched.gameObject.tag != "TrueButton" || touched.gameObject.tag != "FalseButton" || touched.gameObject.tag != "TestButton"|| touched.gameObject.tag != "TrueButton")
-                {
-                    grabed = touched;
-                    grabed.transform.SetParent(this.transform);
-                }
+                
                 
 
                 if (Io != null)
@@ -200,6 +202,11 @@ namespace VoiceInteraction
                     }
                 }
 
+            }
+
+            if (enemyCheck == true)
+            {
+                enemy.transform.position = enemyRoot.enemyPosition;
             }
 
             if (!bHit)

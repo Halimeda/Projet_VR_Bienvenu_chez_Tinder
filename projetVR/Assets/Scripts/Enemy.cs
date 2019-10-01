@@ -7,7 +7,9 @@ public class Enemy : MonoBehaviour
 
     public GameObject player;
     public GameObject floor;
+    public GameObject cube;
     public float rot_speed = 10;
+    public Vector3 enemyPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,7 @@ public class Enemy : MonoBehaviour
     {
         if(player != null && floor != null)
         {
+            enemyPosition = cube.transform.position;
             this.transform.position = new Vector3( player.transform.position.x, floor.transform.position.y, player.transform.position.z);
             this.transform.Rotate( new Vector3( 0, Time.deltaTime * rot_speed, 0 ) );
 

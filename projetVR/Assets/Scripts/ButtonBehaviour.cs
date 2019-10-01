@@ -11,7 +11,7 @@ namespace Valve.VR.InteractionSystem.Sample
         public GameObject door1;
         public GameObject door2;
         private Vector3 ennemyPosition = new Vector3(0, 0, 0);
-        private int number = 0;
+        private int number = 0; //voir si ca été cliqué
         //public audio voix;
 
         public void ButtonClick()
