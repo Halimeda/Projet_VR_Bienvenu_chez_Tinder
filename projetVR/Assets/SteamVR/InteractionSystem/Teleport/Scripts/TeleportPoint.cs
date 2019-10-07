@@ -205,6 +205,7 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		public void SetMeshMaterials( Material material, Color textColor )
 		{
+
 			markerMesh.material = material;
 			switchSceneIcon.material = material;
 			moveLocationIcon.material = material;

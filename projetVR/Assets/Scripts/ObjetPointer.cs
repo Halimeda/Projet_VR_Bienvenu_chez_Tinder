@@ -119,6 +119,16 @@ namespace VoiceInteraction
                     {
                         objectCheck = true;
                     }
+                    else if (touched.gameObject.tag == "Donut")
+                    {
+                        /* 0--> pas encore récupéré
+                         * 1--> récupéré
+                         * 2--> donné
+                         */
+                        Debug.Log("Inventory.modify");
+                        Inventory.Modify(touched.gameObject);
+
+                    }
                 }
 
                 else if (touched.gameObject.tag == "StartButton" || touched.gameObject.tag == "TrueButton" || touched.gameObject.tag == "FalseButton" || touched.gameObject.tag == "TestButton")

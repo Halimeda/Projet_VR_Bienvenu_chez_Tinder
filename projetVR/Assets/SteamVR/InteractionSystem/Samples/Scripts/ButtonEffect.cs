@@ -9,20 +9,10 @@ namespace Valve.VR.InteractionSystem.Sample
 {
     public class ButtonEffect : MonoBehaviour
     {
-
-
-        private int number = 0;
-
-        private void Start()
-        {
-            
-        }
-
         public void OnButtonDown(Hand fromHand)
         {
             ColorSelf(Color.cyan);
             fromHand.TriggerHapticPulse(1000);
-           
         }
 
         public void OnButtonUp(Hand fromHand)
@@ -37,7 +27,6 @@ namespace Valve.VR.InteractionSystem.Sample
             {
                 renderers[rendererIndex].material.color = newColor;
             }
-
         }
     }
 }
