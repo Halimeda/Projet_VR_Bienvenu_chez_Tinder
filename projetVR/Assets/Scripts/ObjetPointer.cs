@@ -25,12 +25,13 @@ namespace VoiceInteraction
         public VoiceInteraction.InteractionObjets Io;
         private GameObject touched;
         private GameObject grabed;
+        private GameObject ennemy;
 
         public audio voixOff;
         public GameObject door1;
         public GameObject door2;
-        public GameObject enemy;
         public Enemy enemyRoot;
+        public GameObject ball;
         private bool enemyCheck = false;
 
         public InteractionObjets interactionObjet;
@@ -105,8 +106,22 @@ namespace VoiceInteraction
         {
             if (newstate && touched != null)
             {
+                if ((touched.gameObject.tag == "Donut" || touched.gameObject.tag == "Money" || touched.gameObject.tag == "Picture" || touched.gameObject.tag == "Ball" || touched.gameObject.tag == "CanMove" || touched.gameObject.tag == "ObjectTest") && grabed == null)
+                {
+                    grabed = touched;
+                    grabed.transform.SetParent(this.transform);
+                    if (touched.gameObject.tag == "Ball")
+                    {
+                        voixOff.endSpeech();
 
-                if (touched.gameObject.tag != "StartButton" || touched.gameObject.tag != "TrueButton" || touched.gameObject.tag != "FalseButton" || touched.gameObject.tag != "TestButton")
+                    }
+                    else if (touched.gameObject.tag == "ObjectTest")
+                    {
+                        objectCheck = true;
+                    }
+                }
+
+                else if (touched.gameObject.tag == "StartButton" || touched.gameObject.tag == "TrueButton" || touched.gameObject.tag == "FalseButton" || touched.gameObject.tag == "TestButton")
                 {
                     grabed = null;
                     if (touched.gameObject.tag == "StartButton")
@@ -132,36 +147,21 @@ namespace VoiceInteraction
                         if (enemyCheck == false)
                         {
                             Debug.Log("False Button - Fight");
-                            GameObject ennemy = Resources.Load("NpcFight") as GameObject;
-                            enemy = Instantiate(ennemy, enemyRoot.enemyPosition, Quaternion.identity) as GameObject;
+                            ennemy = Resources.Load("NpcFight") as GameObject;
+                            ennemy = Instantiate(ennemy, enemyRoot.enemyPosition, Quaternion.identity) as GameObject;
                             enemyCheck = true;
                         }
                     }
-                    else if (touched.gameObject.tag == "TestButton" && objectCheck == false)
+                    else if (touched.gameObject.tag == "TestButton" && objectCheck == true)
                     {
                         //add timer bille & Start animation
                         Debug.Log("No score");
+                        ball = Resources.Load("Note_desirabilite") as GameObject;
+                        ball = Instantiate(ball, Vector3.zero, Quaternion.identity);
+
                     }
                 }
-
-                if (touched.gameObject.tag == "Ball")
-                {
-                    voixOff.endSpeech();
-
-                }
-
                 
-                else if (touched.gameObject.tag == "ObjectTest")
-                {
-                    objectCheck = true;
-                }
-                else if (touched.gameObject.tag == "Donut")
-                {
-                    //interactionObjet.OnTriggerPressedOrReleased();
-                }
-                
-                
-
                 //if (Io != null)
                 //{
                 //    Io.Modify(grabed);
@@ -203,7 +203,7 @@ namespace VoiceInteraction
                 if (hit.distance <= max_distance_to_grab)
                 {
                     string tag = hit.transform.gameObject.tag;
-                    if ((tag == "Donut" || tag == "Money" || tag == "StartButton" || tag == "TrueButton" || tag == "FalseButton" || tag == "TestButton" || tag == "Picture" || tag == "Ball" || tag == "CanMove") && grabed == null)
+                    if ((tag == "Donut" || tag == "Money" || tag == "ObjectTest" || tag == "StartButton" || tag == "TrueButton" || tag == "FalseButton" || tag == "TestButton" || tag == "Picture" || tag == "Ball" || tag == "CanMove") && grabed == null)
                     {
                         touched = hit.transform.gameObject;
                         pointer.GetComponent<MeshRenderer>().material.color = highlightColor;
@@ -214,7 +214,7 @@ namespace VoiceInteraction
 
             if (enemyCheck == true)
             {
-                enemy.transform.position = enemyRoot.enemyPosition;
+                ennemy.transform.position = enemyRoot.enemyPosition;
             }
 
             if (!bHit)
