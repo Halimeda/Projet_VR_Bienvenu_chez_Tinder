@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public static bool enemyCheck = false;
 
     public GameObject player;
     public GameObject floor;

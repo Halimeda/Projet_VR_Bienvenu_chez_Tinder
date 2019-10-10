@@ -10,32 +10,34 @@ namespace VoiceInteraction
         public VoiceInteraction.InteractionObjets Io;
 
 
-        public AudioClip bienvenue;
-        public AudioClip noDonut;
-        public AudioClip donutGive;
-        public AudioClip noMoneyGuard;
-        public AudioClip moneyGuard;
-        public AudioClip noPicturesFound;
-        public AudioClip picturesFound;
-        public AudioClip fakeButtton;
-        public AudioClip trueButtton;
-        public AudioClip randomAttention;
-        public AudioClip randomDiplom;
-        public AudioClip randomLetSee;
-        public AudioClip randomSee;
-        public AudioClip insideRoom2;
-        public AudioClip computerTest;
-        public AudioClip endSpech;
+        public AudioClip bienvenue; //
+        public AudioClip noDonut; //
+        public AudioClip donutGive; //
+        public AudioClip noMoneyGuard; // Pas bon endroit
+        public AudioClip moneyGuard; //
+        public AudioClip noPicturesFound; // Pas bon endroit ?????
+        public AudioClip picturesFound; //
+        public AudioClip fakeButtton; // A metttre !
+        public AudioClip trueButtton; // A metttre !
+        public AudioClip randomAttention; // A metttre !
+        public AudioClip randomDiplom; // A metttre !
+        public AudioClip randomLetSee; // A metttre !
+        public AudioClip randomSee; // A metttre !
+        public AudioClip insideRoom2; // A metttre !
+        public AudioClip computerTest; // A metttre !
+        public AudioClip endSpech; // A Verifier
 
-
-
-        public GameObject door1;
-        public GameObject door2;
 
         public AudioSource audioSource;
 
+        private bool donutCheck = false;
+        private bool moneyCheck = false;
+        private bool pictureCheck = false;
+        private bool coroutineCheck = false;
+        private bool coroutine2Check = false;
 
-        private float timer = 0;
+
+
 
 
 
@@ -46,19 +48,9 @@ namespace VoiceInteraction
         }
 
         // Update is called once per frame
-        void Update() // Don't put zone1 zone2 dans update sinon relance en boucle le code dés que la porte est dead...
+        void Update()
         {
-            timer += 1f;
-            //if (!door1 && door2)
-            //{
-            //    Debug.Log("Entre Voix Off Z1");
-            //    Zone1();
-            //}
-            //else if (!door2 && !door1)
-            //{
-            //    Debug.Log("Entre Voix Off Z2");
-            //    //Zone2();
-            //}
+            
         }
 
 
@@ -75,41 +67,65 @@ namespace VoiceInteraction
             audioSource.Play();
         }
 
-        public void Zone1()
+        public void Donut()
         {
-            audioSource.clip = noDonut;
+            if(Inventory.inventory["Donut"] == 0)
+            {
+                audioSource.clip = noDonut;
+                audioSource.Play();
+                Debug.Log("Entre Voix Off1 Donut");
+            }
+            else if(Inventory.inventory["Donut"] == 2 && donutCheck == false)
+            {
+                audioSource.clip = donutGive;
+                audioSource.Play();
+                donutCheck = true;
+                Debug.Log("Entre Voix Off2 Donut");
+            }
+        }
+
+        public void MoneyorPicture()
+        {
+            if ((Inventory.inventory["Money"] == 0) && (Inventory.inventory["Donut"] == 2) && coroutineCheck == false)
+            {
+                Debug.Log("noMoney");
+                StartCoroutine(launchedNoMoney());
+                coroutineCheck = true;
+            }
+            else if (Inventory.inventory["Money"] == 2 && moneyCheck == false)
+            {
+                Debug.Log("Money");
+                audioSource.clip = moneyGuard;
+                audioSource.Play();
+                moneyCheck = true;
+            }
+            else if ((Inventory.inventory["Picture"] == 0) && (Inventory.inventory["Donut"] == 2) && (Inventory.inventory["Money"] == 2) && coroutine2Check == false)
+            {
+                Debug.Log("noPicture");
+                StartCoroutine(launchedNoPicture());
+                coroutine2Check = true;
+            }
+            else if (Inventory.inventory["Picture"] == 2 && pictureCheck == false)
+            {
+                Debug.Log("Picture");
+                audioSource.clip = picturesFound;
+                audioSource.Play();
+                pictureCheck = true;
+            }
+        }
+
+        IEnumerator launchedNoMoney()
+        {
+            yield return new WaitForSeconds(20f);
+            audioSource.clip = noMoneyGuard;
             audioSource.Play();
-            Debug.Log("Entre Voix Off1 Donut");
-            //if ((Io.inventory["Donut"] == 0) && timer > 60)
-            //{
-            //    audioSource.clip = noDonut;
-            //    audioSource.Play();
-            //}
-            //else if (Io.inventory["Donut"] == 2)
-            //{
-            //    audioSource.clip = donutGive;
-            //    audioSource.Play();
-            //}
-            //else if ((Io.inventory["Money"] == 0) && (Io.inventory["Donut"] == 2) && timer > 120)
-            //{
-            //    audioSource.clip = noMoneyGuard;
-            //    audioSource.Play();
-            //}
-            //else if (Io.inventory["Money"] == 2)
-            //{
-            //    audioSource.clip = moneyGuard;
-            //    audioSource.Play();
-            //}
-            //else if ((Io.inventory["Picture"] == 0) && (Io.inventory["Donut"] == 2) && (Io.inventory["Money"] == 2) && timer > 180)
-            //{
-            //    audioSource.clip = noPicturesFound;
-            //    audioSource.Play();
-            //}
-            //else if (Io.inventory["Picture"] == 2)
-            //{
-            //    audioSource.clip = picturesFound;
-            //    audioSource.Play();
-            //}
+        }
+
+        IEnumerator launchedNoPicture()
+        {
+            yield return new WaitForSeconds(20f);
+            audioSource.clip = noPicturesFound;
+            audioSource.Play();
         }
 
         //Changer Ne lanvce pas la piste audio
