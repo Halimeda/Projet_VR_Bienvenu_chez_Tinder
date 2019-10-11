@@ -1,45 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class npcFight : MonoBehaviour
+namespace VoiceInteraction
 {
-    private int lifePoints;
-   // private int hitTime;
-
-    // Start is called before the first frame update
-    void Start()
+    public class npcFight : MonoBehaviour
     {
-        lifePoints = 3;
-        //hitTime = 10;
-    }
+        private static int lifePoints;
+        private static int hitTime;
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Collision");
-        if (collision.gameObject.tag == "Player")
+        // Start is called before the first frame update
+        void Start()
+        {
+            lifePoints = 3;
+            hitTime = 10;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (hitTime <= 0)
+            {
+                hitTime = 10;
+            }
+
+            if (lifePoints == 0)
+            {
+                Enemy.enemyCheck = false;
+                Destroy(this.gameObject);
+            }
+        }
+
+        public static void hit()
         {
             Debug.Log("-1 lifepoint");
             lifePoints -= 1;
-            //while (hitTime > 0)
-            //{
-            //    hitTime--;
-            //}
+            while (hitTime > 0)
+            {
+                hitTime--;
+            }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (hitTime <= 0)
-        //{
-        //    hitTime = 10;
-        //}
 
-        if (lifePoints == 0)
-        {
-            Enemy.enemyCheck = false;
-            Destroy(this.gameObject);
-        }
-    }
 }

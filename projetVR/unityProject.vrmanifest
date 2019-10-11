@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.projetvr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\a.moraitis\\Desktop\\Projet_VR_Bienvenu_chez_Tinder\\projetVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\a.moraitis\\Desktop\\VR\\Projet_VR_Bienvenu_chez_Tinder\\projetVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "projetVR [Testing]"

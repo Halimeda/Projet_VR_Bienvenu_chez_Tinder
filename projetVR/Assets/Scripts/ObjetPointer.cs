@@ -29,7 +29,12 @@ namespace VoiceInteraction
         private GameObject grabed;
         private GameObject ennemy;
         private GameObject money;
+        private GameObject moneyInstance;
         private GameObject ball;
+        private GameObject ballInstance;
+        private bool falseButtonCheck = false;
+        private bool trueButtonCheck = false;
+        private bool testButtonCheck = false;
 
         public GameObject ballPoint;
         public GameObject picture;
@@ -122,12 +127,17 @@ namespace VoiceInteraction
                     grabed.transform.SetParent(this.transform);
                     if (touched.gameObject.tag == "Ball")
                     {
+                        Destroy(ballInstance,1);
                         voixOff.endSpeech();
 
                     }
                     else if (touched.gameObject.tag == "ObjectTest")
                     {
                         objectCheck = true;
+                    }
+                    else if (touched.gameObject.tag == "CanMove")
+                    {
+                        voixOff.RandomVoice();
                     }
                     else if (touched.gameObject.tag == "Donut")
                     {
@@ -147,7 +157,7 @@ namespace VoiceInteraction
                     {
                         Debug.Log("Inventory.modify Money");
                         Inventory.Modify(touched.gameObject);
-                        money.SetActive(false);
+                        Destroy(moneyInstance);
                     }
                     else if (touched.gameObject.tag == "Picture")
                     {
@@ -164,7 +174,7 @@ namespace VoiceInteraction
                     }
                 }
 
-                else if (touched.gameObject.tag == "StartButton" || touched.gameObject.tag == "TrueButton" || touched.gameObject.tag == "FalseButton" || touched.gameObject.tag == "TestButton" || touched.gameObject.tag == "Pig" || touched.gameObject.tag == "GardePlante")
+                else if (touched.gameObject.tag == "StartButton" || touched.gameObject.tag == "TrueButton" || touched.gameObject.tag == "FalseButton" || touched.gameObject.tag == "TestButton" || touched.gameObject.tag == "Pig" || touched.gameObject.tag == "GardePlante" || touched.gameObject.tag == "Ennemy")
                 {
                     grabed = null;
                     if (touched.gameObject.tag == "StartButton")
@@ -178,29 +188,42 @@ namespace VoiceInteraction
                     }
                     else if (touched.gameObject.tag == "TrueButton")
                     {
-                        if (door2 && Inventory.inventory["Money"] == 2 && Inventory.inventory["Picture"] == 2)
+                        if (door2 && Inventory.inventory["Money"] == 2 && Inventory.inventory["Picture"] == 2 && trueButtonCheck == false)
                         {
-                            Destroy(door2);
+                            voixOff.trueButton();
+                            Destroy(door2, 5);
                             Debug.Log("True room");
+                            trueButtonCheck = true;
 
                         }
                     }
-                    else if (touched.gameObject.tag == "FalseButton")
+                    else if (touched.gameObject.tag == "FalseButton" && falseButtonCheck == false)
                     {
                         if (Enemy.enemyCheck == false)
                         {
+                            voixOff.fakeButton();
                             Debug.Log("False Button - Fight");
                             ennemy = Resources.Load("NpcFight") as GameObject;
                             ennemy = Instantiate(ennemy, enemyRoot.enemyPosition, Quaternion.identity) as GameObject;
                             Enemy.enemyCheck = true;
                         }
+                        falseButtonCheck = true;
                     }
-                    else if (touched.gameObject.tag == "TestButton" && objectCheck == true)
+                    else if (touched.gameObject.tag == "TestButton")
                     {
+                        if (testButtonCheck == false)
+                        {
+                            voixOff.testButton();
+                            testButtonCheck = true;
+                        }
                         //add timer bille & Start animation
-                        Debug.Log("No score");
-                        ball = Resources.Load("Note_desirabilite") as GameObject;
-                        ball = Instantiate(ball, ballPoint.transform.position, Quaternion.identity);
+                        if(objectCheck == true)
+                        {
+                            Debug.Log("No score");
+                            ball = Resources.Load("Note_desirabilite") as GameObject;
+                            ballInstance = Instantiate(ball, ballPoint.transform.position, Quaternion.identity);
+                        }
+
 
                     }
                     else if (touched.gameObject.tag == "Pig")
@@ -211,7 +234,7 @@ namespace VoiceInteraction
                             Inventory.inventory["Donut"] += 1;
                             money = Resources.Load("Money") as GameObject;
                             Vector3 moneypos = new Vector3(pig.transform.position.x +2, pig.transform.position.y, pig.transform.position.z +2);
-                            Instantiate(money, moneypos, Quaternion.identity);
+                            moneyInstance = Instantiate(money, moneypos, Quaternion.identity);
                         }
                         voixOff.Donut();
                     }
@@ -237,6 +260,11 @@ namespace VoiceInteraction
                             Instantiate(trueButton, trueButtonPoint.transform.position, Quaternion.identity);
                         }
                         voixOff.MoneyorPicture();
+                    }
+                    else if(touched.gameObject.tag == "Ennemy")
+                    {
+                        Debug.Log("EnnemyClick");
+                        npcFight.hit();
                     }
                 }
 
@@ -276,7 +304,7 @@ namespace VoiceInteraction
                 if (hit.distance <= max_distance_to_grab)
                 {
                     string tag = hit.transform.gameObject.tag;
-                    if ((tag == "Donut" || tag == "Pig" || tag == "Money" || tag == "ObjectTest" || tag == "StartButton" || tag == "TrueButton" || tag == "FalseButton" || tag == "TestButton" || tag == "Picture" || tag == "Ball" || tag == "CanMove" || tag == "GardePlante") && grabed == null)
+                    if ((tag == "Donut" || tag == "Pig" || tag == "Money" || tag == "ObjectTest" || tag == "StartButton" || tag == "TrueButton" || tag == "FalseButton" || tag == "TestButton" || tag == "Picture" || tag == "Ball" || tag == "CanMove" || tag == "GardePlante"  || tag == "Ennemy") && grabed == null)
                     {
                         touched = hit.transform.gameObject;
                         pointer.GetComponent<MeshRenderer>().material.color = highlightColor;

@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5496066256110992256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1067800718406871089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7ac4bf14c28f74d96a5aae444b87c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!195 &-7403305118645068019
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -34,6 +22,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5496066256110992256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067800718406871089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7ac4bf14c28f74d96a5aae444b87c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4707650232796704982
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45,6 +45,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NpcFight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5730120143660226791, guid: a69b45b890da0ff4aadd4c691a04c69e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ennemy
       objectReference: {fileID: 0}
     - target: {fileID: 5730120143659986275, guid: a69b45b890da0ff4aadd4c691a04c69e,
         type: 3}

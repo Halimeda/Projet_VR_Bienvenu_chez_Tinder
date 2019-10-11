@@ -17,19 +17,18 @@ namespace VoiceInteraction
         public AudioClip moneyGuard; //
         public AudioClip noPicturesFound; // Pas bon endroit ?????
         public AudioClip picturesFound; //
-        public AudioClip fakeButtton; // A metttre !
-        public AudioClip trueButtton; // A metttre !
-        public AudioClip randomAttention; // A metttre !
-        public AudioClip randomDiplom; // A metttre !
-        public AudioClip randomLetSee; // A metttre !
-        public AudioClip randomSee; // A metttre !
-        public AudioClip insideRoom2; // A metttre !
-        public AudioClip computerTest; // A metttre !
-        public AudioClip endSpech; // A Verifier
+        public AudioClip fakeButtton; // 
+        public AudioClip trueButtton; // 
+        public AudioClip insideRoom2; // 
+        public AudioClip computerTest; // 
+        public AudioClip endSpech; // 
+        public AudioClip[] randomVoice;
+        public AudioClip testNull;
 
 
         public AudioSource audioSource;
 
+        private int index = 0;
         private bool donutCheck = false;
         private bool moneyCheck = false;
         private bool pictureCheck = false;
@@ -53,18 +52,65 @@ namespace VoiceInteraction
             
         }
 
+        public void RandomVoice()
+        {
+            Debug.Log(audioSource.clip.name);
+            Debug.Log("RandomVoice");
+            if(audioSource.clip == testNull && index < 4)
+            {
+                Debug.Log("Tableaurandom");
+                audioSource.clip = randomVoice[index];
+                audioSource.Play();
+                index++;
+            }
+        }
 
         public void welcomeSpeech()
         {
-                Debug.Log("Welcome");
-                audioSource.clip = bienvenue;
-                audioSource.Play();
+            Debug.Log("Welcome");
+            audioSource.clip = bienvenue;
+            audioSource.Play();
+            StartCoroutine(nullAudioClip());
+        }
+
+        IEnumerator nullAudioClip()
+        {
+            yield return new WaitForSeconds(audioSource.clip.length);
+            audioSource.clip = testNull;
+        }
+
+        public void fakeButton()
+        {
+            Debug.Log("fake");
+            audioSource.clip = fakeButtton;
+            audioSource.Play();
+            StartCoroutine(nullAudioClip());
+
+        }
+
+        public void trueButton()
+        {
+            Debug.Log("true");
+            audioSource.clip = trueButtton;
+            audioSource.Play();
+
+            StartCoroutine(launchedInsideRoom2());
+        }
+
+        public void testButton()
+        {
+            audioSource.clip = computerTest;
+            audioSource.Play();
+            StartCoroutine(nullAudioClip());
+
         }
 
         public void endSpeech()
         {
             audioSource.clip = endSpech;
             audioSource.Play();
+            StartCoroutine(nullAudioClip());
+
         }
 
         public void Donut()
@@ -73,12 +119,16 @@ namespace VoiceInteraction
             {
                 audioSource.clip = noDonut;
                 audioSource.Play();
+                StartCoroutine(nullAudioClip());
+
                 Debug.Log("Entre Voix Off1 Donut");
             }
             else if(Inventory.inventory["Donut"] == 2 && donutCheck == false)
             {
                 audioSource.clip = donutGive;
                 audioSource.Play();
+                StartCoroutine(nullAudioClip());
+
                 donutCheck = true;
                 Debug.Log("Entre Voix Off2 Donut");
             }
@@ -97,12 +147,15 @@ namespace VoiceInteraction
                 Debug.Log("Money");
                 audioSource.clip = moneyGuard;
                 audioSource.Play();
+                StartCoroutine(nullAudioClip());
+
                 moneyCheck = true;
             }
             else if ((Inventory.inventory["Picture"] == 0) && (Inventory.inventory["Donut"] == 2) && (Inventory.inventory["Money"] == 2) && coroutine2Check == false)
             {
                 Debug.Log("noPicture");
                 StartCoroutine(launchedNoPicture());
+
                 coroutine2Check = true;
             }
             else if (Inventory.inventory["Picture"] == 2 && pictureCheck == false)
@@ -110,20 +163,29 @@ namespace VoiceInteraction
                 Debug.Log("Picture");
                 audioSource.clip = picturesFound;
                 audioSource.Play();
+                StartCoroutine(nullAudioClip());
+
                 pictureCheck = true;
             }
         }
 
         IEnumerator launchedNoMoney()
         {
-            yield return new WaitForSeconds(20f);
+            yield return new WaitForSeconds(15f);
             audioSource.clip = noMoneyGuard;
+            audioSource.Play();
+        }
+
+        IEnumerator launchedInsideRoom2()
+        {
+            yield return new WaitForSeconds(18f);
+            audioSource.clip = insideRoom2;
             audioSource.Play();
         }
 
         IEnumerator launchedNoPicture()
         {
-            yield return new WaitForSeconds(20f);
+            yield return new WaitForSeconds(25f);
             audioSource.clip = noPicturesFound;
             audioSource.Play();
         }
